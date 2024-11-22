@@ -8,15 +8,15 @@ const SideBar = () => {
     const menuItems = [
         {
             icon: MessageCircle,
-            name: 'AI Chat',
-            path: '/',
+            name: 'Create Chat',
+            path: '/assessment',
             color: '#5C6748', // Darker green for better legibility
             activeColor: '#D7E0BD' // Soft green for active state
         },
         {
             icon: Sprout,
-            name: 'Skin Analysis',
-            path: '/analysis',
+            name: 'chat',
+            path: '/',
             color: '#5C6748',
             activeColor: '#D7E0BD'
         }

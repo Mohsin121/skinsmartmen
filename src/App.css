@@ -12,18 +12,37 @@
 
 /* Adds the styling to only the vertical scrollbar */
 .chat-messages::-webkit-scrollbar {
-  width: 8px; /* Width of the scrollbar */
+  width: 11px; /* Width of the scrollbar */
 }
 
 .chat-messages::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
 
+
 .chat-messages::-webkit-scrollbar-thumb {
   background-color: #A2AA7B;
   border-radius: 10px;
   border: 3px solid #f1f1f1;
 }
+
+
+/* Add this to your CSS file or <style> section of your React component */
+.skinAssessmentForm::-webkit-scrollbar {
+  width: 8px; /* Adjust width of the scrollbar */
+}
+
+.skinAssessmentForm::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color of the track */
+}
+
+.skinAssessmentForm::-webkit-scrollbar-thumb {
+  background-color: #A2AA7B; /* Color of the scrollbar itself */
+  border-radius: 10px; /* Rounded corners of the scrollbar thumb */
+  border: 2px solid #f1f1f1; /* Creates padding around the scrollbar thumb */
+}
+
+
 
 .input-field:focus {
   outline: none;

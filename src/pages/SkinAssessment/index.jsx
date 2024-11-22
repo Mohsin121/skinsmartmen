@@ -59,15 +59,15 @@ const SkinAssessment = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 bg-[#F5F7E8] min-h-screen">
-    <div className="max-w-2xl mx-auto bg-white/70 backdrop-blur-lg rounded-2xl shadow-2xl p-8">
-      <h1 className="text-3xl font-bold text-[#5C6748] mb-6 text-center">SkinSmart Men's Skin Assessment</h1>
+    <div className=" mx-auto  min-h-screen ">
+    <div className=" mx-auto bg-white/70   shadow-2xl p-8  overflow-y-auto overflow-y-auto  skinAssessmentForm ">
+      <h1 className="text-3xl font-bold text-[#5C6748] mb-6 text-center">Skin Assessment</h1>
        
         
-        <form className="space-y-6">
+        <form className="space-y-2  px-10 ">
           {/* Skin Type & Concerns Section */}
           <div className="mb-6">
-            <h2 className="text-xl font-semibold text-[#5C6748] mb-4">Skin Profile</h2>
+            <h2 className="text-xl font-semibold text-[#5C6748] mb-4 ">Skin Profile</h2>
             
             {/* Skin Type */}
             <div className="mb-4">
