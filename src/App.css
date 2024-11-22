@@ -1,0 +1,31 @@
+/* Styles the scrollbar track (part the scrollbar moves along) */
+.scrollbar-track {
+  background: #f1f1f1; /* Light grey background */
+}
+
+/* Styles the scrollbar handle */
+.scrollbar-thumb {
+  background-color: #A2AA7B; /* Darker shade for the scrollbar itself */
+  border-radius: 10px; /* Rounded corners for the scrollbar */
+  border: 3px solid #f1f1f1; /* Light grey border */
+}
+
+/* Adds the styling to only the vertical scrollbar */
+.chat-messages::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background-color: #A2AA7B;
+  border-radius: 10px;
+  border: 3px solid #f1f1f1;
+}
+
+.input-field:focus {
+  outline: none;
+  box-shadow: none; /* Optional: Removes any shadow effects on focus */
+}
