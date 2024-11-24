@@ -48,3 +48,9 @@
   outline: none;
   box-shadow: none; /* Optional: Removes any shadow effects on focus */
 }
+
+.sidebar-logo {
+  width: 120px; /* Explicit width */
+  height: auto; /* Maintain aspect ratio */
+  margin: 0; /* Remove any margins */
+}

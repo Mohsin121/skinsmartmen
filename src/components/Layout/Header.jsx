@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import { User, LogOut } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
+  const navigate = useNavigate()
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const onLogOut = () => {
+    navigate("/login")
+  }
 
   return (
     <header className="bg-white/80 backdrop-blur-lg shadow-sm p-4 flex justify-end items-center">
@@ -21,7 +26,7 @@ const Header = () => {
                 <User size={16} className="mr-3" />
                 Profile
               </Link>
-              <button className="w-full flex items-center px-4 py-2 text-[#5C6748] hover:bg-gray-100 transition-colors" onClick={() => {/* Logout Logic */}}>
+              <button className="w-full flex items-center px-4 py-2 text-[#5C6748] hover:bg-gray-100 transition-colors" onClick={() => onLogOut()}>
                 <LogOut size={16} className="mr-3 text-red-500" />
                 Logout
               </button>

@@ -24,7 +24,7 @@ const Chat = () => {
     <div className="shadow-2xl overflow-hidden h-full flex flex-col">
       <div className="flex-grow overflow-y-auto p-4 space-y-3 chat-messages">
         {messages.map((msg, index) => (
-          <div key={index} className={`mx-20 max-w-[30%] p-2 rounded-lg ${msg.sender === 'user' ? 'bg-[#A2AA7B] text-white self-end ml-auto' : 'bg-gray-200 text-gray-800 mr-auto flex items-center'}`}>
+          <div key={index} className={`mx-20 max-w-[30%] p-2 rounded-lg ${msg.sender === 'user' ? 'bg-[#A2AA7B]/70 text-white self-end ml-auto' : 'bg-gray-100 text-gray-800 mr-auto flex items-center'}`}>
             {msg.sender === 'ai' && <Bot size={20} className="mr-2 text-gray-500" />}
             {msg.text}
           </div>

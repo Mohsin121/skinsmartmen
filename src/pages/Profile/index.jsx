@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { Mail } from 'lucide-react';
 
 const Profile = () => {
   const [profileData, setProfileData] = useState({
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@example.com',
-    phoneNumber: '+1 (123) 456-7890'
+    fullName: 'John Doe',
+    age: '25',
+    location: 'New York, USA',
+    email: 'john.doe@example.com'
   });
 
   const handleChange = (e) => {
@@ -15,78 +16,112 @@ const Profile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Implement profile update logic
     console.log('Profile Updated', profileData);
   };
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold text-[#5C6748] mb-6">
-        Profile Information
-      </h2>
-      
-      <form onSubmit={handleSubmit} className="max-w-md space-y-4">
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-[#5C6748] mb-2">
-              First Name
-            </label>
-            <input
-              type="text"
-              name="firstName"
-              value={profileData.firstName}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-[#A2AA7B] rounded-lg"
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-[#5C6748] mb-2">
-              Last Name
-            </label>
-            <input
-              type="text"
-              name="lastName"
-              value={profileData.lastName}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-[#A2AA7B] rounded-lg"
-            />
-          </div>
+    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+        {/* Header Section */}
+        <div className="px-6 py-6 bg-white border-b border-gray-100">
+          <h2 className="text-2xl font-bold text-[#5C6748]">
+            Profile Information
+          </h2>
+          <p className="mt-1 text-sm text-[#8C9669]">
+            Update your personal information
+          </p>
         </div>
-        
-        <div>
-          <label className="block text-sm font-medium text-[#5C6748] mb-2">
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            value={profileData.email}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-[#A2AA7B] rounded-lg"
-          />
+
+        {/* Form Section */}
+        <div className="px-6 py-6">
+          <form onSubmit={handleSubmit}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Left Column */}
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium text-[#5C6748] mb-2">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    name="fullName"
+                    value={profileData.fullName}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg border border-[#A2AA7B] focus:ring-2 focus:ring-[#A2AA7B] focus:border-[#A2AA7B] 
+                             bg-white transition-colors hover:bg-gray-50 outline-none"
+                    placeholder="Enter your full name"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-[#5C6748] mb-2">
+                    Age
+                  </label>
+                  <input
+                    type="number"
+                    name="age"
+                    value={profileData.age}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg border border-[#A2AA7B] focus:ring-2 focus:ring-[#A2AA7B] focus:border-[#A2AA7B] 
+                             bg-white transition-colors hover:bg-gray-50 outline-none"
+                    placeholder="Enter your age"
+                  />
+                </div>
+              </div>
+
+              {/* Right Column */}
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium text-[#5C6748] mb-2">
+                    Location
+                  </label>
+                  <input
+                    type="text"
+                    name="location"
+                    value={profileData.location}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg border border-[#A2AA7B] focus:ring-2 focus:ring-[#A2AA7B] focus:border-[#A2AA7B] 
+                             bg-white transition-colors hover:bg-gray-50 outline-none"
+                    placeholder="Enter your location"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-[#5C6748] mb-2">
+                    Email Address
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <Mail className="h-5 w-5 text-[#A2AA7B]" />
+                    </div>
+                    <input
+                      type="email"
+                      name="email"
+                      value={profileData.email}
+                      onChange={handleChange}
+                      className="w-full pl-10 pr-4 py-3 rounded-lg border border-[#A2AA7B] focus:ring-2 focus:ring-[#A2AA7B] focus:border-[#A2AA7B] 
+                               bg-white transition-colors hover:bg-gray-50 outline-none"
+                      placeholder="Enter your email"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Button Section - Full Width */}
+            <div className="mt-6">
+              <button
+                type="submit"
+                className="w-full flex justify-center items-center px-6 py-3 rounded-lg text-sm font-medium text-white
+                         bg-[#A2AA7B] hover:bg-[#8C9669] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A2AA7B] 
+                         transition-colors shadow-sm"
+              >
+                Update Profile
+              </button>
+            </div>
+          </form>
         </div>
-        
-        <div>
-          <label className="block text-sm font-medium text-[#5C6748] mb-2">
-            Phone Number
-          </label>
-          <input
-            type="tel"
-            name="phoneNumber"
-            value={profileData.phoneNumber}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-[#A2AA7B] rounded-lg"
-          />
-        </div>
-        
-        <button 
-          type="submit" 
-          className="w-full bg-[#A2AA7B] text-white py-2 rounded-lg hover:bg-[#8C9669] transition-colors"
-        >
-          Update Profile
-        </button>
-      </form>
+      </div>
     </div>
   );
 };
