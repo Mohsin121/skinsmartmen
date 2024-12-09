@@ -4,9 +4,12 @@ import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 // Forgot Password Component
 export const ForgotPassword = () => {
   const [email, setEmail] = useState('');
+  const [scuccess, setSuccess] = useState('');
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSuccess("Please check you email for reset password")
     console.log('Reset link sent to:', email);
   };
 
@@ -54,6 +57,7 @@ export const ForgotPassword = () => {
             >
               Send Reset Link
             </button>
+         <div className='bg-[#Add676] flex  rounded-sm p-2 text-center'>{scuccess}</div>
 
             <p className="text-center text-sm text-[#5C6748]">
               Remember your password?{' '}

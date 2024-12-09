@@ -8,9 +8,28 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
-  const onLogin = () => {
-navigate("/")
+
+
+  const validatePassword = (password) => {
+    // Password should be at least 8 characters, contain a number, uppercase letter, and special character.
+    const passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordPattern.test(password)) {
+      setPasswordError("Password must be at least 8 characters long, include a number, an uppercase letter, and a special character.");
+      return false;
+    } else {
+      setPasswordError("");
+      return true;
+    }
+  };
+
+  const onLogin = (e) => {
+    e.preventDefault();
+    const isPasswordValid = validatePassword(password);
+    if ( isPasswordValid ) {
+      navigate("/");
+    }
   }
 
   return (
@@ -56,7 +75,7 @@ navigate("/")
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-4 py-2 border border-[#A2AA7B] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A2AA7B]"
                   placeholder="Enter your password"
-                  required
+                  
                 />
                 <button
                   type="button"
@@ -66,6 +85,7 @@ navigate("/")
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
+              {passwordError && <p className="text-red-500 text-xs mt-1">{passwordError}</p>}
             </div>
 
             <div className="text-center mt-6">

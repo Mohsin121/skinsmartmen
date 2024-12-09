@@ -1,7 +1,9 @@
 import { Eye, EyeOff, Lock } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export const ResetPassword = () => {
+const ResetPassword = () => {
+  const navigate = useNavigate();
   const [passwordData, setPasswordData] = useState({
     newPassword: '',
     confirmPassword: ''
@@ -12,18 +14,44 @@ export const ResetPassword = () => {
     confirm: false
   });
 
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setPasswordData(prev => ({ ...prev, [name]: value }));
   };
 
+  const validatePassword = (password) => {
+    // Password should be at least 8 characters, contain a number, uppercase letter, and special character
+    const passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordPattern.test(password)) {
+      setPasswordError("Password must be at least 8 characters long, include a number, an uppercase letter, and a special character.");
+      return false;
+    } else {
+      setPasswordError("");
+      return true;
+    }
+  };
+
+  const validateConfirmPassword = () => {
+    if (passwordData.confirmPassword !== passwordData.newPassword) {
+      setConfirmPasswordError("Passwords do not match.");
+      return false;
+    } else {
+      setConfirmPasswordError("");
+      return true;
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (passwordData.newPassword !== passwordData.confirmPassword) {
-      alert('Passwords do not match');
-      return;
+    const isPasswordValid = validatePassword(passwordData.newPassword);
+    const isConfirmPasswordValid = validateConfirmPassword();
+
+    if (isPasswordValid && isConfirmPasswordValid) {
+      navigate("/login");
     }
-    console.log('Password Reset Submitted');
   };
 
   return (
@@ -31,82 +59,62 @@ export const ResetPassword = () => {
       <div className="max-w-lg mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
         {/* Header */}
         <div className="px-6 py-6 bg-white border-b border-gray-100">
-          <h2 className="text-2xl font-bold text-[#5C6748]">
-            Reset Password
-          </h2>
-          <p className="mt-1 text-sm text-[#8C9669]">
-            Enter your new password
-          </p>
+          <h2 className="text-2xl font-bold text-[#5C6748]">Reset Password</h2>
+          <p className="mt-1 text-sm text-[#8C9669]">Enter your new password</p>
         </div>
 
         {/* Form */}
-        <div className="px-6 py-6">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* New Password */}
-            <div>
-              <label className="block text-sm font-medium text-[#5C6748] mb-2">
-                New Password
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-[#A2AA7B]" />
-                </div>
-                <input
-                  type={showPasswords.new ? "text" : "password"}
-                  name="newPassword"
-                  value={passwordData.newPassword}
-                  onChange={handleChange}
-                  className="w-full pl-10 pr-10 py-3 rounded-lg border border-[#A2AA7B] focus:ring-2 focus:ring-[#A2AA7B] focus:border-[#A2AA7B] 
-                           bg-white transition-colors hover:bg-gray-50 outline-none"
-                  placeholder="Enter new password"
-                  required
-                />
-                <button
-                  type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                  onClick={() => setShowPasswords(prev => ({ ...prev, new: !prev.new }))}
-                >
-                  {showPasswords.new ? 
-                    <EyeOff className="h-5 w-5 text-[#A2AA7B]" /> : 
-                    <Eye className="h-5 w-5 text-[#A2AA7B]" />
-                  }
-                </button>
-              </div>
+        <form onSubmit={handleSubmit} className="space-y-6 px-6 py-8">
+          {/* New Password */}
+          <div className="relative">
+            <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700">New Password</label>
+            <div className="mt-1 flex items-center">
+              <input
+                type={showPasswords.new ? "text" : "password"}
+                name="newPassword"
+                id="newPassword"
+                value={passwordData.newPassword}
+                onChange={handleChange}
+                onBlur={() => validatePassword(passwordData.newPassword)}
+                className="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-[#5C6748] focus:border-[#5C6748]"
+              />
+              <button
+                type="button"
+                className="ml-2"
+                onClick={() => setShowPasswords({ ...showPasswords, new: !showPasswords.new })}
+              >
+                {showPasswords.new ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
             </div>
+            {passwordError && <p className="text-xs text-red-500 mt-1">{passwordError}</p>}
+          </div>
 
-            {/* Confirm Password */}
-            <div>
-              <label className="block text-sm font-medium text-[#5C6748] mb-2">
-                Confirm New Password
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-[#A2AA7B]" />
-                </div>
-                <input
-                  type={showPasswords.confirm ? "text" : "password"}
-                  name="confirmPassword"
-                  value={passwordData.confirmPassword}
-                  onChange={handleChange}
-                  className="w-full pl-10 pr-10 py-3 rounded-lg border border-[#A2AA7B] focus:ring-2 focus:ring-[#A2AA7B] focus:border-[#A2AA7B] 
-                           bg-white transition-colors hover:bg-gray-50 outline-none"
-                  placeholder="Confirm new password"
-                  required
-                />
-                <button
-                  type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                  onClick={() => setShowPasswords(prev => ({ ...prev, confirm: !prev.confirm }))}
-                >
-                  {showPasswords.confirm ? 
-                    <EyeOff className="h-5 w-5 text-[#A2AA7B]" /> : 
-                    <Eye className="h-5 w-5 text-[#A2AA7B]" />
-                  }
-                </button>
-              </div>
+          {/* Confirm Password */}
+          <div className="relative">
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">Confirm Password</label>
+            <div className="mt-1 flex items-center">
+              <input
+                type={showPasswords.confirm ? "text" : "password"}
+                name="confirmPassword"
+                id="confirmPassword"
+                value={passwordData.confirmPassword}
+                onChange={handleChange}
+                onBlur={validateConfirmPassword}
+                className="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-[#5C6748] focus:border-[#5C6748]"
+              />
+              <button
+                type="button"
+                className="ml-2"
+                onClick={() => setShowPasswords({ ...showPasswords, confirm: !showPasswords.confirm })}
+              >
+                {showPasswords.confirm ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
             </div>
+            {confirmPasswordError && <p className="text-xs text-red-500 mt-1">{confirmPasswordError}</p>}
+          </div>
 
-            <div className="space-y-4">
+          {/* Submit Button */}
+          <div className="space-y-4">
               <button
                 type="submit"
                 className="w-full flex justify-center items-center px-6 py-3 rounded-lg text-sm font-medium text-white
@@ -123,8 +131,7 @@ export const ResetPassword = () => {
                 </a>
               </p>
             </div>
-          </form>
-        </div>
+        </form>
       </div>
     </div>
   );
