@@ -1,6 +1,7 @@
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { successToaster } from "../../utils/swal";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ const Signup = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
     const isEmailValid = validateEmail(email);
@@ -53,7 +54,21 @@ const Signup = () => {
     const isConfirmPasswordValid = validateConfirmPassword(confirmPassword);
 
     if (isEmailValid && isPasswordValid && isConfirmPasswordValid) {
-      navigate("/login");
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/api/auth/signup",
+          formData
+        );
+        console.log("Signup Successful", response.data);
+        navigate("/login");
+        successToaster("Signup Successful");
+      } catch (error) {
+        if (error.response && error.response.data) {
+          setServerError(error.response.data.message);
+        } else {
+          setServerError("Something went wrong. Please try again.");
+        }
+      }
     }
   };
 
@@ -98,7 +113,7 @@ const Signup = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full p-2 border rounded-md border-[#D1D9B3] focus:outline-none focus:ring-2 focus:ring-[#5C6748]"
                   placeholder="Enter your password"
-                  required
+                
                 />
                 <button
                   type="button"
@@ -121,7 +136,7 @@ const Signup = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 className="w-full p-2 border rounded-md border-[#D1D9B3] focus:outline-none focus:ring-2 focus:ring-[#5C6748]"
                 placeholder="Confirm your password"
-                required
+             
               />
               {confirmPasswordError && <p className="text-red-500 text-xs mt-1">{confirmPasswordError}</p>}
             </div>
