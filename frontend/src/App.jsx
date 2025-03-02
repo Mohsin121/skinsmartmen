@@ -9,8 +9,7 @@ import Profile from './pages/Profile';
 import Chat from './pages/Chat';
 import WelcomePage from './pages/WelcomePage';
 import ResetPassword from './pages/Auth/ResetPassword';
-import ForgetPassworda, { ForgotPassword } from './pages/Auth/ForgotPassword';
-import ForgetPassword from './pages/Auth/ForgotPassword';
+import  { ForgotPassword } from './pages/Auth/ForgotPassword';
 
 function App() {
   return (
@@ -20,7 +19,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword/>} />
-        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
 
         <Route path="/" element={<Layout />}>
 

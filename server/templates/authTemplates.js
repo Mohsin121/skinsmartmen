@@ -91,7 +91,7 @@ exports.otpVerifyTemplate = (user, link) => {
                               "
                             >
                               Thank you for initiating the account creation
-                              process with SkinSync. To complete your registration,
+                              process with SkinSmart. To complete your registration,
                               please click the link below.
                             </p>
                             <p>
@@ -125,7 +125,7 @@ exports.otpVerifyTemplate = (user, link) => {
                                 color: #333;
                               "
                             >
-                              SkinSync will never email you and ask you
+                              SkinSmartMen will never email you and ask you
                               to disclose or verify your password.
                             </p>
                           </td>

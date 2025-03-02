@@ -1,19 +1,20 @@
 import Swal from "sweetalert2";
 
-// Theme Constants - Updated to match gray theme
+// Theme Constants - Updated to match SkinSmart AI theme
 const BACKGROUND_COLOR = "#ffffff";
-const TEXT_COLOR = "#374151"; // gray-700
-const GRAY_600 = "#4B5563";
-const GRAY_700 = "#374151";
-const GRAY_800 = "#1F2937";
+const TEXT_COLOR = "#5C6748"; // Main text color from your theme
+const PRIMARY_COLOR = "#A2AA7B"; // Your brand green
+const DARKER_PRIMARY = "#8B936A"; // Darker version for hover
+const ACCENT_COLOR = "#5C6748"; // Darker green from your theme
 const MESSAGE_DISPLAY_TIME = 3000;
 
 // Custom CSS classes for SweetAlert
 const customStyles = `
   .custom-swal-popup {
-    border-radius: 1rem !important;
+    border-radius: 0.75rem !important;
     background: ${BACKGROUND_COLOR} !important;
-    box-shadow: 0 8px 30px rgb(0,0,0,0.12) !important;
+    box-shadow: 0 8px 30px rgb(0,0,0,0.08) !important;
+    backdrop-filter: blur(4px) !important;
   }
 
   .custom-swal-container {
@@ -21,7 +22,7 @@ const customStyles = `
   }
 
   .swal2-title {
-    color: ${TEXT_COLOR} !important;
+    color: ${ACCENT_COLOR} !important;
     font-weight: 600 !important;
   }
 
@@ -30,7 +31,7 @@ const customStyles = `
   }
 
   .swal2-confirm {
-    background: linear-gradient(to right, #4B5563, #1F2937) !important;
+    background: ${PRIMARY_COLOR} !important;
     border-radius: 0.75rem !important;
     font-weight: 500 !important;
     padding: 0.75rem 1.5rem !important;
@@ -39,7 +40,7 @@ const customStyles = `
 
   .swal2-confirm:hover {
     transform: scale(1.02) !important;
-    opacity: 0.9 !important;
+    background: ${DARKER_PRIMARY} !important;
   }
 
   .swal2-cancel {
@@ -56,7 +57,7 @@ const customStyles = `
   }
 
   .swal2-timer-progress-bar {
-    background: linear-gradient(to right, #4B5563, #1F2937) !important;
+    background: ${PRIMARY_COLOR} !important;
   }
 
   .swal2-success-circular-line-left,
@@ -66,7 +67,7 @@ const customStyles = `
   }
 
   .swal2-toast {
-    background: linear-gradient(to right, #4B5563, #1F2937) !important;
+    background: ${PRIMARY_COLOR} !important;
     border-radius: 0.75rem !important;
     color: white !important;
   }

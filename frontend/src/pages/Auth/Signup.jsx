@@ -2,16 +2,21 @@ import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { successToaster } from "../../utils/swal";
+import axios from "axios";
 
 const Signup = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [serverError, setServerError] = useState('');
+  const [userNameError, setUserNameError] = useState('');
+
 
   const validateEmail = (email) => {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -26,9 +31,9 @@ const Signup = () => {
 
   const validatePassword = (password) => {
     // Password should be at least 8 characters, contain a number, uppercase letter, and special character.
-    const passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
     if (!passwordPattern.test(password)) {
-      setPasswordError("Password must be at least 8 characters long, include a number, an uppercase letter, and a special character.");
+      setPasswordError("Password must be at least 6 characters long, include a number, an uppercase letter, and a special character.");
       return false;
     } else {
       setPasswordError("");
@@ -46,18 +51,35 @@ const Signup = () => {
     }
   };
 
+  const validateUserName = (userName) => {
+    if (userName === "") {
+      setUserNameError("Please enter your full name.");
+      return false;
+    } else {
+      setUserNameError("");
+      return true;
+    }
+  };
+  
+
   const handleSubmit = async(e) => {
     e.preventDefault();
 
     const isEmailValid = validateEmail(email);
     const isPasswordValid = validatePassword(password);
     const isConfirmPasswordValid = validateConfirmPassword(confirmPassword);
+    const isUserNameValid = validateUserName(name);
 
-    if (isEmailValid && isPasswordValid && isConfirmPasswordValid) {
+    if (isEmailValid && isPasswordValid && isConfirmPasswordValid && isUserNameValid) {
+      const payload = {
+        name,
+        email,
+        password,
+      };
       try {
         const response = await axios.post(
           "http://localhost:8000/api/auth/signup",
-          formData
+          payload
         );
         console.log("Signup Successful", response.data);
         navigate("/login");
@@ -87,6 +109,21 @@ const Signup = () => {
           </div>
 
           <form onSubmit={handleSubmit}>
+
+          <div className="mb-4">
+              <label htmlFor="name" className="block text-sm font-semibold text-[#5C6748] mb-2">Full Name</label>
+              <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full p-2 border rounded-md border-[#D1D9B3] focus:outline-none focus:ring-2 focus:ring-[#5C6748]"
+                placeholder="Enter User Name"
+           
+              />
+              {userNameError && <p className="text-red-500 text-xs mt-1">{userNameError}</p>}
+            </div>
+
             {/* Email */}
             <div className="mb-4">
               <label htmlFor="email" className="block text-sm font-semibold text-[#5C6748] mb-2">Email Address</label>
@@ -149,6 +186,7 @@ const Signup = () => {
               Create Account
             </button>
           </form>
+          {serverError && <p className="text-red-500 text-xs text-center mt-1">{serverError}</p>}
 
           <div className="mt-4 text-center text-sm text-[#7C8A5F]">
             <p>Already have an account? <Link to="/login" className="text-[#5C6748] font-semibold">Login here</Link></p>
