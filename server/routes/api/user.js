@@ -22,7 +22,7 @@ router.put(
   async (request, response) => {
     try {
       console.log("body for update", request.body);
-      const { fullName, phone, skinTone } = request.body;
+      const { fullName, phone, location, age } = request.body;
       const userId = request.user._id;
 
       // Find the user
@@ -34,7 +34,8 @@ router.put(
       // Update user data
       user.fullName = fullName || user.fullName;  
       user.phone = phone || user.phone;
-      user.skinTone = skinTone || user.skinTone;
+      user.location = location || user.location;
+      user.age = age || user.age;
 
       // Save the updated user information
       const updatedUser = await user.save();

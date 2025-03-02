@@ -33,6 +33,9 @@ const UserSchema = new mongoose.Schema(
     verifyToken: { type: String, default: null },
     verifyTokenExpires: { type: Date, default: null },
 
+    location:{ type: String, default:""},
+    age:{ type: Number, default:""},
+
 
     status: {
       type: String,
@@ -88,7 +91,8 @@ UserSchema.methods.toAuthJSON = function () {
     id: this._id,
     email:this.email,
     fullName: this.fullName,
-    profileImage:this.profileImage,
+    age: this.age,
+    location: this.location,
     otp: this.otp,
     authType: this.authType,
     otp: this.otp,
@@ -102,9 +106,10 @@ UserSchema.methods.toJSON = function () {
   return {
     id: this._id,
     fullName: this.fullName,
-    profileImage:this.profileImage,
     email: this.email,
     status: this.status,
+    age: this.age,
+    location: this.location,
     role: this.role,
   };
 };
