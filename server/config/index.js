@@ -5,7 +5,7 @@ const devURLs = {
 };
 
 const config = {
-  ...(process.env.NODE_ENV === "production" ? prodURLs : devURLs),
+  ...( process.env.NODE_ENV === "production" ? prodURLs : devURLs ),
   secret: process.env.SECRET,
   port: process.env.PORT || 8000,
   dbURL: process.env.DB_URL,
@@ -16,7 +16,9 @@ const config = {
     SMTP_USERNAME: process.env.SMTP_USERNAME,
     SMTP_PASSWORD: process.env.SMTP_PASSWORD,
   },
-  allowedOrigins: ["http://localhost:5173"],
+  allowedOrigins: [ "http://localhost:5173" ],
+  OPENAI_API_KEY: process.env.OPEN_AI_KEY,
+
 };
 
 module.exports = config;

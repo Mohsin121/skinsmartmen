@@ -21,6 +21,13 @@
 		"express": "^4.19.2",
 		"express-session": "^1.18.0",
 		"jsonwebtoken": "^9.0.2",
+		"openai": "^4.0.1",
+		"slug": "^0.9.4",
+		"axios": "^1.5.1",
+		"express-http-response": "^0.0.8",
+
+
+
 		"mongoose": "^8.4.5",
 		"mongoose-paginate-v2": "^1.8.2",
 		"mongoose-unique-validator": "^5.0.1",
