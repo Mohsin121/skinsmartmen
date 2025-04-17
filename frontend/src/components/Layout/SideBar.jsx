@@ -14,7 +14,6 @@ const SideBar = () => {
     const sessions = useSelector( ( state ) => state.sessions ); // Access sessions from Redux store
 
 
-    const [ loading, setLoading ] = useState( true );
 
 
 
@@ -48,16 +47,12 @@ const SideBar = () => {
     }, [ dispatch ] );
 
 
-    const createdChats = useSelector( ( state ) => state.chat.createdChats );
-
-
+   
     // Check if user is authenticated
     const token = localStorage.getItem( 'token' );
     const isAuthenticated = Boolean( token ); // Convert to boolean for clarity
 
-    const handleDeleteChat = ( chatId ) => {
-        dispatch( { type: 'DELETE_CHAT', payload: chatId } );
-    };
+  
 
     const settingsItems = [
         {
@@ -121,55 +116,55 @@ const SideBar = () => {
 
 
     return (
-        <aside className="relative flex flex-col h-screen w-64 p-3 bg-white/85 backdrop-blur-lg border-r border-[#E7EAE5]">
-            {/* Main Container with Flex Column */}
-            <div className="flex flex-col h-full">
+        <aside className="relative flex flex-col h-screen w-80 bg-white shadow-lg border-r border-[#E7EAE5]">
+            <div className="flex flex-col h-full p-4">
                 {/* Logo Section */}
-                <div className="flex items-center justify-center shrink-0">
+                <div className="flex items-center justify-center py-4 mb-2">
                     <img
                         src="/src/assets/logo2.png"
                         alt="SkinSmart AI Logo"
-                        className="sidebar-logo"
+                        className="h-12 object-contain"
                     />
                 </div>
 
                 {/* Chat Section */}
-                <div className="flex-grow overflow-y-auto pt-4">
-                    <div className="flex items-center justify-between mb-4">
-                        <h2 className="text-lg font-medium text-[#5C6748]">Chat</h2>
-                        <Link to="/assessment">
-                            <Edit size={18} className="text-[#5C6748] hover:text-[#D7E0BD] transition-colors duration-200" />
+                <div className="flex-grow overflow-y-auto scrollbar-thin scrollbar-thumb-sage-200 scrollbar-track-transparent">
+                    <div className="flex items-center justify-between mb-6 px-2">
+                        <h2 className="text-xl font-semibold text-sage-700">Chat</h2>
+                        <Link 
+                            to="/assessment"
+                            className="p-2 hover:bg-sage-100 rounded-lg transition-colors duration-200"
+                        >
+                            <Edit size={20} className="text-sage-600" />
                         </Link>
                     </div>
 
-                    {/* Created Chats List */}
-
-
-
-                    <div className="space-y-2 ml-2">
+                    {/* Sessions List */}
+                    <div className="space-y-2 px-2">
                         {sessions.length > 0 ? (
-                            sessions.map( ( session ) => {
+                            sessions.map((session) => {
                                 const isSessionActive = location.pathname === `/chat/${session.id}`;
-                                const sessionName = `Session - ${new Date( session.createdAt ).toLocaleDateString()}`;
+                                const sessionName = `Session - ${new Date(session.createdAt).toLocaleDateString()}`;
 
                                 return (
                                     <div
                                         key={session.id}
-                                        className="group flex items-center justify-between py-2 px-3 rounded-md cursor-pointer transition-colors duration-200"
+                                        className="group relative flex items-center justify-between rounded-lg transition-all duration-200 hover:bg-sage-50 cursor-pointer"
                                     >
-                                        {/* Session Name Section */}
                                         <div
-                                            onClick={() => handleSessionClick( session )} // Separate click for session loading
-                                            className={`flex-1 text-sm truncate
-                            ${isSessionActive ? 'bg-[#A2AA7B] text-white' : 'hover:bg-[#D7E0BD]/10'}`
-                                            }
+                                            onClick={() => handleSessionClick(session)}
+                                            className={`flex items-center flex-1 p-3 rounded-lg transition-all duration-200
+                                                  ${isSessionActive ? 'bg-[#A2AA7B] text-white' : 'hover:bg-[#D7E0BD]/10'}`}
                                         >
-                                            <span className={`${isSessionActive ? 'text-white' : 'text-[#5C6748]'}`}>
+                                            <MessageCircle 
+                                                size={18} 
+                                                className={`mr-3 ${isSessionActive ? 'text-white' : 'text-sage-500'}`} 
+                                            />
+                                            <span className="text-sm font-medium truncate">
                                                 {sessionName}
                                             </span>
                                         </div>
 
-                                        {/* Delete Button Section */}
                                         <button
                                             onClick={( e ) => {
                                                 e.stopPropagation(); // Prevent triggering session click when deleting
@@ -182,26 +177,34 @@ const SideBar = () => {
                                         </button>
                                     </div>
                                 );
-                            } )
+                            })
                         ) : (
-                            <p className="text-sm text-[#5C6748] text-center mt-4">
-                                No sessions available. Start by creating a new assessment!
-                            </p>
+                            <div className="text-center py-8 px-4 rounded-lg bg-sage-50">
+                                <p className="text-sm text-sage-600 mb-2">
+                                    No sessions available
+                                </p>
+                                <Link 
+                                    to="/assessment"
+                                    className="inline-flex items-center justify-center px-4 py-2 bg-sage-600 text-white rounded-lg hover:bg-sage-700 transition-colors duration-200"
+                                >
+                                    <Edit size={16} className="mr-2" />
+                                    Create Assessment
+                                </Link>
+                            </div>
                         )}
                     </div>
-
-
-
                 </div>
 
-                {/* Settings Section - Only visible if authenticated */}
+                {/* Settings Section */}
                 {isAuthenticated && (
-                    <div className="mt-auto pt-4 border-t border-[#E7EAE5]">
-                        <h2 className="text-lg font-medium text-[#5C6748] mb-3">ACCOUNT</h2>
+                    <div className="mt-auto pt-4 border-t border-sage-200">
+                        <h2 className="text-lg font-semibold text-sage-700 mb-3 px-2">
+                            ACCOUNT
+                        </h2>
                         <div className="space-y-1">
-                            {settingsItems.map( ( item, index ) => (
+                            {settingsItems.map((item, index) => (
                                 <NavItem key={index} {...item} />
-                            ) )}
+                            ))}
                         </div>
                     </div>
                 )}

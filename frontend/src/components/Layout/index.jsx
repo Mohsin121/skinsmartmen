@@ -1,20 +1,18 @@
-
-import {  Outlet } from 'react-router-dom';
-
+import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Sidebar from './SideBar';
 
-
-
 const Layout = () => {
   return (
-    <div className="flex h-screen ">
+    <div className="flex h-screen overflow-hidden ">
+      <div className='max-w-4xl'>
       <Sidebar />
+      </div>
       <div className="flex-grow flex flex-col">
         <Header />
-        <div className="flex-grow overflow-auto">
+        <main className="flex-1 overflow-hidden">
           <Outlet />
-        </div>
+        </main>
       </div>
     </div>
   );
